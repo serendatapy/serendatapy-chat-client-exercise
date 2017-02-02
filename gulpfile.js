@@ -10,7 +10,7 @@ const $ = require('gulp-load-plugins')();
 function addDefSrcIgnore (srcArr) {
   return srcArr.concat([
     '!node_modules{,/**}',
-    '!bower_components{,/**}',
+    '!app/bower_components{,/**}',
     '!private{,/**}',
     '!dist{,/**}',
     '!.git{,/**}',
