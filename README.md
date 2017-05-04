@@ -6,7 +6,7 @@ Make a chat client that loads in the browser, and looks like a typical message a
 
 - The UI is divided in 3 parts. On the left side there are messages from other users. On the right side there are messages you wrote. On the bottom there’s an input with a button to send new messages.
 - Your messages and the other users’ messages should have different background colors, come in a nice bubbly shape, and auto scroll to keep the relevant content on the screen as new messages come in.
-- Automatically load new messages from other users, grabbing them from this [quotes API](http://forismatic.com/en/api/). The messages should come in at random intervals within a time range of your choice.
+- Automatically load new messages from other users, grabbing them from this [programming quotes API](http://quotes.stormconsultancy.co.uk/api) (use the “random” mode). The messages should come in at random intervals within a time range of your choice.
 - All messages should be instances of a `Message` class that has 3 properties:
   - `author` (string) - The author’s username (for this exercise the values can just be “me” or “other”).
   - `content` (string) - The message text.
@@ -14,7 +14,7 @@ Make a chat client that loads in the browser, and looks like a typical message a
 
 To make the requests to the API install and use [jQuery](http://jquery.com/download/) (you can save it as a dependency through [Bower](https://bower.io/), or import it from the CDN).
 
-First try to get your external quotes using [Ajax](http://api.jquery.com/jquery.ajax/). You will notice that the requests get blocked because there’s no [CORS](https://developer.mozilla.org/en/docs/Web/HTTP/Access_control_CORS) header. So, consider switching to JSONP and check the difference.
+First get your external quotes using [Ajax](http://api.jquery.com/jquery.ajax/) (notice that the responses include a [CORS](https://developer.mozilla.org/en/docs/Web/HTTP/Access_control_CORS) header). Now switch to JSONP, and check the difference between the two methods.
 
 Make sure to make small, incremental, and descriptive commits along the way. Before committing check your syntax through `gulp lint`.
 
