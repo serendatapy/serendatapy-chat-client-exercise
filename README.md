@@ -8,11 +8,11 @@ Make a chat client that loads in the browser, and looks like a typical message a
 - Your messages and the other users’ messages should have different background colors, come in a nice bubbly shape, and auto scroll to keep the relevant content on the screen as new messages come in.
 - Automatically load new messages from other users, grabbing them from this [programming quotes API](http://quotes.stormconsultancy.co.uk/api) (use the “random” mode). The messages should come in at random intervals within a time range of your choice.
 - All messages should be instances of a `Message` class that has 3 properties:
-  - `author` (string) - The author’s username (for this exercise the values can just be “me” or “other”).
-  - `content` (string) - The message text.
-  - `timeStamp` (number) - The creation timestamp in milliseconds.
+  - `authorId` (Boolean) - For now we’ll just keep this to a Boolean, where `true` represents the current user, and `false` the other person you’re chatting with.
+  - `content` (String) - The message text.
+  - `timeStamp` (Number) - The creation timestamp in milliseconds.
 
-To make the requests to the API install and use [jQuery](http://jquery.com/download/) (you can save it as a dependency through [Bower](https://bower.io/), or import it from the CDN).
+To make the requests to the API install and use [jQuery](http://jquery.com/download/) (you can save it as a dependency through [npm](https://docs.npmjs.com/getting-started/installing-npm-packages-locally), or import it from the CDN).
 
 First get your external quotes using [Ajax](http://api.jquery.com/jquery.ajax/) (notice that the responses include a [CORS](https://developer.mozilla.org/en/docs/Web/HTTP/Access_control_CORS) header). Now switch to JSONP, and check the difference between the two methods.
 
