@@ -1,4 +1,3 @@
-
 const gulp = require('gulp');
 const browserSync = require('browser-sync').create();
 const fs = require('fs');
@@ -79,7 +78,7 @@ gulp.task('dist', ['remove-solutions'], function () {
   const npmConfig = require('./package.json');
   npmConfig.name = removeMaster(npmConfig.name);
   npmConfig.repository.url = removeMaster(npmConfig.repository.url);
-  npmConfig.config.ghooks['pre-commit'] = 'gulp lint';
+  npmConfig.scripts['pre-commit'] = 'gulp lint';
   fs.writeFileSync('dist/package.json', JSON.stringify(npmConfig, null, 2));
 
   const esLintConfig = require('./.eslintrc.json');
