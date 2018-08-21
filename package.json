@@ -1,6 +1,6 @@
 {
   "name": "codeworks-chat-client-exercise",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "A Codeworks exercise to train students",
   "main": "index.js",
   "repository": {
@@ -32,7 +32,6 @@
     }
   },
   "scripts": {
-    "precommit": "gulp lint && npm test",
-    "pre-commit": "gulp lint"
+    "precommit": "gulp lint"
   }
 }
