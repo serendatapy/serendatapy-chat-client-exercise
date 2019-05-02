@@ -18,72 +18,88 @@ function addDefSrcIgnore (srcArr) {
 }
 
 gulp.task('default', function () {
+  const npmConfig = require('./package.json');
   browserSync.init({
-    server: {baseDir: './app'}
+    server: {
+      baseDir: `./app${npmConfig.name.includes('master') ? '/REMOVE' : ''}`
+    }
   });
-  gulp.watch([
-    'app/index.html',
-    'app/style.css',
-    'app/script.js'
-  ]).on('change', browserSync.reload);
+  gulp
+    .watch(['app/index.html', 'app/style.css', 'app/script.js'])
+    .on('change', browserSync.reload);
 });
-
-// Lint all files
-gulp.task('lint', ['lint-js', 'lint-html', 'lint-css']);
 
 // JavaScript and JSON linter
 gulp.task('lint-js', function () {
-  return gulp.src(addDefSrcIgnore(['**/*.js', '**/*.json']), {dot: true})
-    .pipe($.eslint({dotfiles: true}))
+  return gulp
+    .src(addDefSrcIgnore(['**/*.js', '**/*.json']), { dot: true })
+    .pipe($.eslint({ dotfiles: true }))
     .pipe($.eslint.format())
     .pipe($.eslint.failAfterError());
 });
 
 // HTML linter
 gulp.task('lint-html', function () {
-  return gulp.src(addDefSrcIgnore(['**/*.html']))
-    .pipe($.htmlLint({htmllintrc: '.htmllintrc.json'}))
+  return gulp
+    .src(addDefSrcIgnore(['**/*.html']))
+    .pipe($.htmlLint({ htmllintrc: '.htmllintrc.json' }))
     .pipe($.htmlLint.format())
     .pipe($.htmlLint.failAfterError());
 });
 
 // CSS linter
 gulp.task('lint-css', function () {
-  return gulp.src(addDefSrcIgnore(['**/*.css']))
-    .pipe($.stylelint({
+  return gulp.src(addDefSrcIgnore(['**/*.css'])).pipe(
+    $.stylelint({
       failAfterError: true,
-      reporters: [
-        {formatter: 'string', console: true}
-      ]
-    }));
+      reporters: [{ formatter: 'string', console: true }]
+    })
+  );
 });
+
+// Lint all files
+gulp.task('lint', gulp.series('lint-js', 'lint-html', 'lint-css'));
 
 // Remove solutions from exercises
-gulp.task('remove-solutions', ['lint'], function () {
-  del.sync('dist');
-  return gulp.src(addDefSrcIgnore(['**']), {dot: true})
-    .pipe($.replace(/^\s*(\/\/|<!--|\/\*)\s*REMOVE-START[\s\S]*?REMOVE-END\s*(\*\/|-->)?\s*$/gm, ''))
-    .pipe(gulp.dest('dist'));
-});
+gulp.task(
+  'remove-solutions',
+  gulp.series('lint', function () {
+    del.sync('dist');
+    return gulp
+      .src(addDefSrcIgnore(['**']), { dot: true })
+      .pipe(
+        $.replace(
+          /^\s*(\/\/|<!--|\/\*)\s*REMOVE-START[\s\S]*?REMOVE-END\s*(\*\/|-->)?\s*$/gm,
+          ''
+        )
+      )
+      .pipe(gulp.dest('dist'));
+  })
+);
 
 // Prepare for distribution to students
-gulp.task('dist', ['remove-solutions'], function () {
+gulp.task(
+  'dist',
+  gulp.series('remove-solutions', function (done) {
+    function removeMaster (str) {
+      var strArr = str.split('-');
+      strArr[strArr.length - 1] === 'master' && strArr.pop();
+      return strArr.join('-');
+    }
 
-  function removeMaster (str) {
-    var strArr = str.split('-');
-    strArr[strArr.length - 1] === 'master' && strArr.pop();
-    return strArr.join('-');
-  }
+    const npmConfig = require('./package.json');
+    npmConfig.name = removeMaster(npmConfig.name);
+    npmConfig.repository.url = removeMaster(npmConfig.repository.url);
+    npmConfig.scripts['precommit'] = 'gulp lint';
+    fs.writeFileSync('dist/package.json', JSON.stringify(npmConfig, null, 2));
 
-  const npmConfig = require('./package.json');
-  npmConfig.name = removeMaster(npmConfig.name);
-  npmConfig.repository.url = removeMaster(npmConfig.repository.url);
-  npmConfig.scripts['precommit'] = 'gulp lint';
-  fs.writeFileSync('dist/package.json', JSON.stringify(npmConfig, null, 2));
-
-  const esLintConfig = require('./.eslintrc.json');
-  esLintConfig.rules['no-undef'] = 'off';
-  esLintConfig.rules['no-unused-vars'] = 'off';
-  fs.writeFileSync('dist/.eslintrc.json', JSON.stringify(esLintConfig, null, 2));
-
-});
+    const esLintConfig = require('./.eslintrc.json');
+    esLintConfig.rules['no-undef'] = 'off';
+    esLintConfig.rules['no-unused-vars'] = 'off';
+    fs.writeFileSync(
+      'dist/.eslintrc.json',
+      JSON.stringify(esLintConfig, null, 2)
+    );
+    done();
+  })
+);
