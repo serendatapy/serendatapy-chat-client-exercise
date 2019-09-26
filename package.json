@@ -1,11 +1,11 @@
 {
   "name": "codeworks-chat-client-exercise",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A Codeworks exercise to train students",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "codeworksbcn/chat-client-exercise"
+    "url": "codeworks/chat-client-exercise"
   },
   "author": "Codeworks",
   "license": "UNLICENSED",
