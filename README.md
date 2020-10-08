@@ -35,3 +35,7 @@ Now you can run the `gulp` command from the project folder: this will open the
 - Add unit tests in the `/test` folder. First you’ll need to install [Jasmine](https://jasmine.github.io/) and save it as a [dev-dependency](https://docs.npmjs.com/cli/install) in your project (read the docs and see how it works). In the same way, to test your DOM you can use [jsdom](https://github.com/tmpvar/jsdom).
 - Display the timestamp of each message in a user-friendly way, using the “relative time” feature of [Moment.js](https://momentjs.com/).
 - Improve the look and feel of your UI, go fancy, make it sexy!
+
+
+## NOTES:
+Uses browsify to change node.js file to browser compatible file, then you can run jest tests on that build.
