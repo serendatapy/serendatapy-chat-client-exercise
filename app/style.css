@@ -1,0 +1,88 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+.messages {
+    height: 92.5vh;
+    overflow: auto;
+
+    display: flex;
+}
+
+.messages-section {
+    flex: 0 0 50%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.messages-left {
+    align-items: flex-start;
+}
+
+.messages-right {
+    align-items: flex-end;
+}
+
+.messages-right .message-bubble {
+    background-color: lightgrey;
+}
+
+.text-input {
+    border-top: 1px solid black;
+    height: 7.5vh;
+    display: flex;
+}
+
+#message-input {
+    flex-grow: 1;
+    padding: 1.5rem 1rem;
+    font-size: 1.2rem;
+    border: none;
+}
+
+.button-container {
+    flex: 0 0 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-container button {
+    padding: 1rem;
+    background-color: chartreuse;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.button-container button:active {
+    transform: translateY(1px);
+}
+
+.message-bubble {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: .5rem;
+    margin: 1rem;
+    background-color: aqua;
+}
+
+.time {
+    display: block;
+    text-align: right;
+    color: grey;
+}
+
+.placeholder {
+    padding: 0.5rem 1rem;
+    margin: 1rem;
+}
+
+textarea:focus, input:focus{
+    outline: 0;
+}

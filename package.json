@@ -11,6 +11,7 @@
   "license": "UNLICENSED",
   "private": true,
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
     "browser-sync": "^2.16.0",
     "cz-changelog": "^1.0.1",
     "del": "^3.0.0",
@@ -24,6 +25,9 @@
     "gulp-stylelint": "^7.0.0",
     "gulp-util": "3.0.8",
     "husky": "^0.14.3",
+    "jasmine": "^3.6.1",
+    "jest": "^26.5.2",
+    "jsdom": "^16.4.0",
     "stylelint": "^9.4.0",
     "stylelint-config-standard": "^18.2.0"
   },
@@ -33,6 +37,10 @@
     }
   },
   "scripts": {
-    "precommit": "gulp lint"
+    "precommit": "gulp lint",
+    "start": "gulp"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1"
   }
 }
